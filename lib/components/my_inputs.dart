@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class MyInput extends StatelessWidget {
   String hintText;
   bool obscureText;
+  TextEditingController controller;
 
-  MyInput({Key? key, required this.hintText, required this.obscureText})
+  MyInput({Key? key, 
+  required this.hintText, 
+  required this.obscureText, 
+  required this.controller})
       : super(key: key);
 
   @override
@@ -15,6 +19,7 @@ class MyInput extends StatelessWidget {
         vertical: 8,
       ),
       child: TextField(
+          controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(border: OutlineInputBorder())),
     );
