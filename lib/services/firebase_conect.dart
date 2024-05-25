@@ -17,16 +17,19 @@ login(email, password) async {
   }
 }
 
-creatUser() async {
+createUser(name, number, email, password) async {
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  var db = FirebaseFirestore.instance;
-
-  await db.collection('Users').doc('1').set({
-    'name':'Gabriel',
-    'age':'21',
-    'job':'Web Developer'
-  });
-  
+  var auth = FirebaseAuth.instance;
+  await auth.createUserWithEmailAndPassword(email: email, password: password);
+  // var db = FirebaseFirestore.instance;
+  // try {
+  //   await db.collection('Users').doc('1').set(
+  //       {'name': name, 'number': number, 'email': email, 'password': password});
+  //   return true;
+  // } catch (e) {
+  //   print(e);
+  //   return false;
+  // }
   // await db.collection('Users').add({
   //   'name':'Gabriel',
   //   'age':'21',
@@ -35,6 +38,6 @@ creatUser() async {
 
   // var data = await db.collection('Users').doc('1').get();
   // print(data.get('name'));
-  
+
   // var data = await db.collection('Users').doc('1').delete();
 }

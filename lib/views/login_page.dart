@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/services/firebase_conect.dart';
+import 'package:helloworld/views/create_account.dart';
 import 'package:helloworld/views/home_page.dart';
 import '../components/my_inputs.dart';
 
@@ -37,7 +37,14 @@ class LoginPage extends StatelessWidget {
                     content: Text("Usuario ou senha incorreto(s)"),
                     backgroundColor: Colors.red)));
             },
-            child: Text('Entrar'))
+            child: Text('Entrar')),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => CreateAccount()));
+          },
+          child: Text('Criar Conta'),
+        )
       ],
     ));
   }
