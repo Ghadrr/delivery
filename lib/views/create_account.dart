@@ -17,6 +17,7 @@ class _CreateAccountState extends State<CreateAccount> {
     TextEditingController nameController = TextEditingController();
     TextEditingController numberController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    TextEditingController confirmPasswordController = TextEditingController();
 
     return Scaffold(
       body: Column(
@@ -46,9 +47,15 @@ class _CreateAccountState extends State<CreateAccount> {
           MyInput(
               hintText: "confirme sua senha",
               obscureText: true,
-              controller: passwordController),
+              controller: confirmPasswordController),
           ElevatedButton(
               onPressed: () async {
+                if(passwordController.text != confirmPasswordController.text){
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("As Senhas Não coincidem"),
+                  backgroundColor: Colors.red,));
+                  return;
+
+                }
                 var db = await createUser(nameController.text, numberController.text,
                     emailController.text, passwordController.text);
                 if (db == true) {
