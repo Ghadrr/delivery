@@ -15,7 +15,8 @@ login(email, password) async {
     print(e);
     return false;
   }
-}
+}   
+
 
 createUser(name, number, email, password) async {
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -48,4 +49,3 @@ createUser(name, number, email, password) async {
 
   // var data = await db.collection('Users').doc('1').delete();
 }
-

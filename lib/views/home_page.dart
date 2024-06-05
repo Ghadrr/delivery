@@ -75,6 +75,43 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      body: Column(
+        children: [
+          Container(
+            color: Colors.amber,
+            height: 100,
+            margin: EdgeInsets.all(13),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    SizedBox(height: 20,),
+                    Text("a"),
+                    Text("data"),
+                    Container(
+                      margin: EdgeInsets.all(16),
+                      color: Colors.red,
+                      child: Text("data"),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  width: 56,
+                ),
+                Text("IMAGEM")
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.blue,
+            child: Column(
+              children: [Text('fdas')],
+            ),
+          ),
+        ],
+      ),
+
       // body: Column(children: [
       //   Expanded(
       //     child: CarouselSlider(
