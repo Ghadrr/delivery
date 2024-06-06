@@ -86,27 +86,57 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Column(
                   children: [
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Text("a"),
                     Text("data"),
                     Container(
                       margin: EdgeInsets.all(16),
                       color: Colors.red,
                       child: Text("data"),
-                    )
+                    ),
                   ],
                 ),
                 SizedBox(
                   width: 56,
                 ),
-                Text("IMAGEM")
+                Text("IMAGEM"),
               ],
             ),
           ),
           Container(
             color: Colors.blue,
+            height: 110,
+            margin: EdgeInsets.all(13),
             child: Column(
-              children: [Text('fdas')],
+              children: [
+                Text('Categories'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      color: Colors.deepPurpleAccent,
+                      margin: EdgeInsets.all(10),
+                      height: 70,
+                      width: 100,
+                    ),
+                    Container(
+                      color: Colors.deepPurpleAccent,
+                      margin: EdgeInsets.all(10),
+                      height: 70,
+                      width: 100,
+                    ),
+                    Container(
+                      color: Colors.deepPurpleAccent,
+                      margin: EdgeInsets.all(10),
+                      height: 70,
+                      width: 100,
+                    ),
+                  ],
+                ),
+              ],
+              
             ),
           ),
         ],
