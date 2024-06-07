@@ -20,26 +20,26 @@ class LoginPage extends StatelessWidget {
           size: 70,
         ),
         MyInput(
-            hintText: 'Email', obscureText: false, controller: emailController),
+          hintText: 'Email',
+          obscureText: false,
+          controller: emailController,
+        ),
         MyInput(
             hintText: 'Senha',
             obscureText: true,
             controller: passwordController),
         ElevatedButton(
-            onPressed: (){
-              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=> HomePage()) );
-            }, 
-            // async {
-            //   var auth =
-            //       await login(emailController.text, passwordController.text);
-            //   if (auth == true) {
-            //     Navigator.pushReplacement(context,
-            //         MaterialPageRoute(builder: (context) => HomePage()));
-            //   } else
-            //     (ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            //         content: Text("Usuario ou senha incorreto(s)"),
-            //         backgroundColor: Colors.red)));
-            // },
+            onPressed: () async {
+              var auth =
+                  await login(emailController.text, passwordController.text);
+              if (auth == true) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              } else
+                (ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Usuario ou senha incorreto(s)"),
+                    backgroundColor: Colors.red)));
+            },
             child: Text('Entrar')),
         ElevatedButton(
           onPressed: () {

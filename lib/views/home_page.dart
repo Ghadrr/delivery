@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -101,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: 56,
                 ),
-                Text("IMAGEM"),
+                FlutterLogo(),
               ],
             ),
           ),
@@ -111,9 +113,13 @@ class _HomePageState extends State<HomePage> {
             margin: EdgeInsets.all(13),
             child: Column(
               children: [
-                Text('Categories'),
+                Container(
+                  color: Colors.amber,
+                  height: 20,
+                  child: Text("Categorias"),
+                ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       color: Colors.deepPurpleAccent,
@@ -136,7 +142,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ],
-              
             ),
           ),
         ],

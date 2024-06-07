@@ -50,14 +50,18 @@ class _CreateAccountState extends State<CreateAccount> {
               controller: confirmPasswordController),
           ElevatedButton(
               onPressed: () async {
-                if(passwordController.text != confirmPasswordController.text){
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("As Senhas Não coincidem"),
-                  backgroundColor: Colors.red,));
+                if (passwordController.text != confirmPasswordController.text) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("As Senhas Não coincidem"),
+                    backgroundColor: Colors.red,
+                  ));
                   return;
-
                 }
-                var db = await createUser(nameController.text, numberController.text,
-                    emailController.text, passwordController.text);
+                var db = await createUser(
+                    nameController.text,
+                    numberController.text,
+                    emailController.text,
+                    passwordController.text);
                 if (db == true) {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => LoginPage()));

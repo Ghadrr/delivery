@@ -5,11 +5,12 @@ class MyInput extends StatelessWidget {
   bool obscureText;
   TextEditingController controller;
 
-  MyInput({Key? key, 
-  required this.hintText, 
-  required this.obscureText, 
-  required this.controller})
-      : super(key: key);
+  MyInput({
+    Key? key,
+    required this.hintText,
+    required this.obscureText,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
