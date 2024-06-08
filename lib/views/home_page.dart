@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Center(
                   child: Column(
-                    children: [
+                    children: [ 
                       SizedBox(
                         height: 30,
                       ),
