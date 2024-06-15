@@ -6,7 +6,7 @@ main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: false),
+      theme: ThemeData(useMaterial3: true),
       home: HomePage(),
     ),
   );
