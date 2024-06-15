@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-import 'package:helloworld/views/login_page.dart';
+import 'package:helloworld/services/firebase_conect.dart';
 import 'package:helloworld/views/product_detail.dart';
 import 'package:path/path.dart';
 
@@ -99,16 +98,16 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: 30,
                         ),
-                        Text("Promoção"),
-                        Text("Hamburguer"),
+                        Text("A noite"),
+                        Text("Começa"),
                         ElevatedButton(
                             onPressed: () {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ProductDetail()));
+                                      builder: (context) => HomePage()));
                             },
-                            child: Text("Comprar")),
+                            child: Text("Aqui")),
                       ],
                     ),
                   ),
@@ -128,19 +127,27 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.all(15),
+              margin: const EdgeInsets.all(15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () => Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => HomePage())),
-                    child: Column(
-                      children: [
-                        Image.network("https://via.placeholder.com/70"),
-                        Text("Hamburgueres"),
-                      ],
-                    ),
+                  FutureBuilder(
+                    
+                    future: get_img(),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return ListView.builder(
+                          itemBuilder: (context, index) {
+                            var logo = snapshot.data[index];
+                            return Text("${logo['url_img']}");
+                          },
+                        );
+                      }
+                    },
                   ),
                   InkWell(
                     onTap: () => Navigator.pushReplacement(context,
@@ -162,11 +169,10 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                
                 ],
               ),
             ),
-             Container(
+            Container(
               margin: EdgeInsets.all(15),
               child: Row(
                 children: [Text("Popular Now")],
@@ -192,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-                 Container(
+            Container(
               margin: EdgeInsets.all(15),
               child: Row(
                 children: [Text("Recommended")],
