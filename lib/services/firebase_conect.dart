@@ -52,16 +52,16 @@ createUser(name, number, email, password) async {
   // var data = await db.collection('Users').doc('1').delete();
 }
 
-get_img()async{
+get_img() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   var db = FirebaseFirestore.instance;
   var logos = await db.collection("logos").get();
-  print(logos.docs);
-  logos.docs.forEach((item) => { 
-    print(item.data())
-  });
-  return logos.docs;
+
+  var items = logos.docs
+      .map(
+        (e) => e.data(),
+      )
+      .toList();
+
+  return items;
 }
-
-
-

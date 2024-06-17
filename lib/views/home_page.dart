@@ -1,12 +1,6 @@
-import 'dart:io';
-
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/services/firebase_conect.dart';
-import 'package:helloworld/views/product_detail.dart';
-import 'package:path/path.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -132,7 +126,6 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   FutureBuilder(
-                    
                     future: get_img(),
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -140,11 +133,13 @@ class _HomePageState extends State<HomePage> {
                           child: CircularProgressIndicator(),
                         );
                       } else {
-                        return ListView.builder(
-                          itemBuilder: (context, index) {
-                            var logo = snapshot.data[index];
-                            return Text("${logo['url_img']}");
-                          },
+                        print(snapshot.data);
+
+                        return Row(
+                          children: [
+                            for (var i in snapshot.data)
+                              Text('$i')
+                          ],
                         );
                       }
                     },
