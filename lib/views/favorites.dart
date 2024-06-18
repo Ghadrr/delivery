@@ -1,7 +1,12 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class favorites extends StatefulWidget {
-  const favorites({super.key});
+  const favorites({
+    super.key,
+  });
 
   @override
   State<favorites> createState() => _favoritesState();

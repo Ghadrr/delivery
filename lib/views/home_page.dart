@@ -93,16 +93,16 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: 30,
                         ),
-                        Text("A noite"),
-                        Text("Começa"),
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()));
-                            },
-                            child: Text("Aqui")),
+                        Text("NeedFood"),
+                        Text("Delivery"),
+                        // ElevatedButton(
+                        //     onPressed: () {
+                        //       Navigator.pushReplacement(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //               builder: (context) => HomePage()));
+                        //     },
+                        //     child: Text("Aqui")),
                       ],
                     ),
                   ),
@@ -187,7 +187,12 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                ProductDetail()));
+                                                ProductDetail(image: '${allProd['url_img']}',
+                                                desc: '${allProd['decricao']}',
+                                                name: '${allProd['nome']}',
+                                                preco: '${allProd['preco']}',
+                                                
+                                                )));
                                   },
                                   child: Card(
                                     child: Column(
@@ -238,7 +243,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+          
       ),
-    );
+      
+      );
   }
 }

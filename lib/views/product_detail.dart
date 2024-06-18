@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ProductDetail extends StatefulWidget {
-  const ProductDetail({super.key});
+  String name;
+  String image;
+  String desc;
+  String preco;
+
+  ProductDetail(
+      {super.key,
+      required this.name,
+      required this.image,
+      required this.desc,
+      required this.preco});
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
@@ -10,6 +20,10 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      appBar: AppBar(
+        ,
+      ),
+    );
   }
 }
