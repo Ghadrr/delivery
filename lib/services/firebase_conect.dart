@@ -6,6 +6,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 
+FirebaseFirestore getFirebaseFirestoreInstance() {
+  return FirebaseFirestore.instance;
+}
+
+Future<FirebaseApp> getFirebaseApp() {
+  return Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform);
+}
+
 login(email, password) async {
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   var auth = FirebaseAuth.instance;
@@ -64,4 +73,35 @@ get_img() async {
       .toList();
 
   return items;
+}
+
+get_all_prod() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  var db = FirebaseFirestore.instance;
+  var logos = await db.collection("Produtos").get();
+
+  var items = logos.docs
+      .map(
+        (e) => e.data(),
+      )
+      .toList();
+
+  return items;
+}
+
+
+getAllCategories() async {
+  await getFirebaseApp();
+
+  bool result = false;
+  var db = getFirebaseFirestoreInstance();
+
+  try {
+    var snapshot = await db.collection('Produtos').get();
+    var categories = snapshot.docs.map((c) => c.data()).toList();
+
+    return categories;
+  } catch (e) {
+    return result;   
+  }
 }

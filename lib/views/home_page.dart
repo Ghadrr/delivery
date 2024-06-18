@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helloworld/services/firebase_conect.dart';
+import 'package:helloworld/views/product_detail.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -108,7 +109,8 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       Image.network(
-                          width: 180, "https://via.placeholder.com/100"),
+                          width: 180,
+                          "https://firebasestorage.googleapis.com/v0/b/del1very.appspot.com/o/x_bacon.png?alt=media&token=f0e993b4-4749-4071-aff3-2d865772d4a1"),
                     ],
                   )
                 ],
@@ -122,49 +124,35 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               margin: const EdgeInsets.all(15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FutureBuilder(
-                    future: get_img(),
-                    builder: (context, AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        print(snapshot.data);
-
-                        return Row(
-                          children: [
-                            for (var i in snapshot.data)
-                              Text('$i')
-                          ],
-                        );
-                      }
-                    },
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => HomePage())),
-                    child: Column(
+              child: FutureBuilder(
+                future: get_img(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    // print(snapshot.data);
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.network("https://via.placeholder.com/70"),
-                        Text("Bebidas"),
+                        for (var i in snapshot.data)
+                          InkWell(
+                            onTap: () => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage())),
+                            child: Card(
+                              child: Column(children: [
+                                Image.network(height: 70, '${i['url_img']}'),
+                                Text('${i['nome']}')
+                              ]),
+                            ),
+                          ),
                       ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => HomePage())),
-                    child: Column(
-                      children: [
-                        Image.network("https://via.placeholder.com/70"),
-                        Text("Combos"),
-                      ],
-                    ),
-                  ),
-                ],
+                    );
+                  }
+                },
               ),
             ),
             Container(
@@ -173,25 +161,54 @@ class _HomePageState extends State<HomePage> {
                 children: [Text("Popular Now")],
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  6,
-                  (index) {
-                    return Container(
-                      margin: EdgeInsets.all(5),
-                      child: Column(
-                        children: [
-                          Image.network(
-                              width: 100, "https://via.placeholder.com/100"),
-                          Text("data"),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
+            FutureBuilder(
+              future: get_all_prod(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  var allProds = snapshot.data;
+                  for (var i in allProds) {
+                    print(i.runtimeType);
+                  }
+                  return Container(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (var allProd in allProds)
+                              Container(
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductDetail()));
+                                  },
+                                  child: Card(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Image.network(
+                                            height: 70, '${allProd['url_img']}'),
+                                        Text('${allProd['nome']}'),
+                                        Text("R\$"'${allProd['preco']}'),
+                                        
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                          ]),
+                    ),
+                  );
+                }
+              },
             ),
             Container(
               margin: EdgeInsets.all(15),
