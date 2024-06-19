@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         for (var i in snapshot.data)
                           InkWell(
-                            onTap: () => Navigator.pushReplacement(
+                            onTap: () => Navigator.pop(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => HomePage())),
@@ -186,13 +186,8 @@ class _HomePageState extends State<HomePage> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductDetail(image: '${allProd['url_img']}',
-                                                desc: '${allProd['decricao']}',
-                                                name: '${allProd['nome']}',
-                                                preco: '${allProd['preco']}',
-                                                
-                                                )));
+                                            builder: (context) => ProductDetail(
+                                                produto: allProd)));
                                   },
                                   child: Card(
                                     child: Column(
@@ -200,10 +195,10 @@ class _HomePageState extends State<HomePage> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Image.network(
-                                            height: 70, '${allProd['url_img']}'),
+                                            height: 70,
+                                            '${allProd['url_img']}'),
                                         Text('${allProd['nome']}'),
-                                        Text("R\$"'${allProd['preco']}'),
-                                        
+                                        Text("R\$" '${allProd['preco']}'),
                                       ],
                                     ),
                                   ),
@@ -243,9 +238,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-          
       ),
-      
-      );
+    );
   }
 }
