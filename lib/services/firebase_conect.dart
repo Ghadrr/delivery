@@ -29,7 +29,7 @@ login(email, password) async {
   }
 }
 
-createUser(name, number, email, password) async {
+createUser(name, number, email, endereco, password) async {
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   var auth = FirebaseAuth.instance;
@@ -41,8 +41,8 @@ createUser(name, number, email, password) async {
         email: email, password: password);
 
     //adiciona os dados do user acima criado ao firestore
-    await db.collection('Users').doc('1').set(
-        {'name': name, 'number': number, 'email': email, 'password': password});
+    await db.collection('Users').add(
+        {'name': name, 'number': number, 'email': email, 'endereco':endereco, 'password': password});
     return true;
   } catch (e) {
     print(e);
@@ -60,6 +60,43 @@ createUser(name, number, email, password) async {
 
   // var data = await db.collection('Users').doc('1').delete();
 }
+
+change_user(name, number, password, endereco)async {
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  var auth = FirebaseAuth.instance;
+  var db = FirebaseFirestore.instance;
+  try {
+    await db.collection("Users").doc(auth.currentUser!.uid).update({
+    'name': name,
+    'number': number,
+    'endereco': endereco,
+    'password': password,
+    });
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+
+}
+// get_user() async {
+//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+//   var db = FirebaseFirestore.instance;
+//   var auth = FirebaseAuth.instance;
+//   var user = await db.collection("Users").doc(auth.currentUser!.uid).get();
+
+//   var users = user.docs
+//       .map(
+//         (e) => e.data(),
+//       )
+//       .toList();
+
+//   return items;
+// }
+
+
+
 
 get_img() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -89,7 +126,6 @@ get_all_prod() async {
   return items;
 }
 
-
 getAllCategories() async {
   await getFirebaseApp();
 
@@ -102,6 +138,6 @@ getAllCategories() async {
 
     return categories;
   } catch (e) {
-    return result;   
+    return result;
   }
 }

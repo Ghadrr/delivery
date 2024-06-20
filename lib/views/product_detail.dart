@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:helloworld/views/carrinho.dart';
 import 'package:helloworld/views/home_page.dart';
 
 class ProductDetail extends StatefulWidget {
@@ -52,7 +53,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => carrinho()));
                     },
                     child: Text("Adicionar ao Carrinho")),
               ],
