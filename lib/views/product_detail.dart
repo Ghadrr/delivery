@@ -40,12 +40,33 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
             Container(
               margin: EdgeInsets.all(15),
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [Text('Produto:')],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(widget.produto['nome']),
-                  Text('${widget.produto['preco']}'),
-                  Text(widget.produto['descricao'])
+                  Text('R\$: ${widget.produto['preco']}'),
                 ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [Text('Descrição:')],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [Text(widget.produto['descricao'])],
               ),
             ),
             Column(

@@ -20,8 +20,11 @@ class _ProfileState extends State<Profile> {
   TextEditingController confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Alterar Perfil'),
+      ),
+      body: Container(
         child: Column(
           children: [
             Text("Nome"),
@@ -39,41 +42,25 @@ class _ProfileState extends State<Profile> {
                 hintText: "endereco",
                 obscureText: false,
                 controller: enderecoController),
-            Text("Senha"),
-            MyInput(
-                hintText: "password",
-                obscureText: false,
-                controller: passwordController),
-            Text("Confirmar Senha"),
-            MyInput(
-                hintText: "confirm password",
-                obscureText: false,
-                controller: confirmPasswordController),
             ElevatedButton(
                 onPressed: () async {
-                  if (passwordController.text !=
-                      confirmPasswordController.text) {
+                  var auth = await change_user(
+                    nameController.text,
+                    numberController.text,
+                    enderecoController.text,
+                  );
+                  if (auth == true) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("As Senhas Não coincidem"),
-                      backgroundColor: Colors.red,
-                    ));
-                    return;
-                  }
-                  var db = await change_user(
-                      nameController.text,
-                      numberController.text,
-                      enderecoController.text,
-                      passwordController.text);
-                  if (db == true) {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  } else {
+                        content: Text(
+                      "Dados alterados",
+                    )));
+                  } else
                     (ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("falha ao alterar o usuario"),
-                        backgroundColor: Colors.red)));
-                  }
+                        content: Text(
+                      "Error",
+                    ))));
                 },
-                child: Text("Editar Perfil"))
+                child: Text("Alterar Dados")),
           ],
         ),
       ),

@@ -41,8 +41,13 @@ createUser(name, number, email, endereco, password) async {
         email: email, password: password);
 
     //adiciona os dados do user acima criado ao firestore
-    await db.collection('Users').add(
-        {'name': name, 'number': number, 'email': email, 'endereco':endereco, 'password': password});
+    await db.collection('Users').add({
+      'name': name,
+      'number': number,
+      'email': email,
+      'endereco': endereco,
+      'password': password
+    });
     return true;
   } catch (e) {
     print(e);
@@ -61,25 +66,41 @@ createUser(name, number, email, endereco, password) async {
   // var data = await db.collection('Users').doc('1').delete();
 }
 
-change_user(name, number, password, endereco)async {
+change_user(name, number, endereco) async {
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   var auth = FirebaseAuth.instance;
   var db = FirebaseFirestore.instance;
   try {
-    await db.collection("Users").doc(auth.currentUser!.uid).update({
-    'name': name,
-    'number': number,
-    'endereco': endereco,
-    'password': password,
+    await db.collection("Users").doc(auth.currentUser!.uid).set({
+      'name': name,
+      'number': number,
+      'email': auth.currentUser!.email,
+      'endereco': endereco,
     });
     return true;
   } catch (e) {
     print(e);
     return false;
   }
-
 }
+
+user_feedback(message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  var auth = FirebaseAuth.instance;
+  var db = FirebaseFirestore.instance;
+  try {
+    await db.collection('feedback').add({
+      'feedback_message': message,
+      'user': auth.currentUser!.email,
+    });
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+
 // get_user() async {
 //   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 //   var db = FirebaseFirestore.instance;
@@ -95,10 +116,7 @@ change_user(name, number, password, endereco)async {
 //   return items;
 // }
 
-
-
-
-get_img() async {
+get_logos() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   var db = FirebaseFirestore.instance;
   var logos = await db.collection("logos").get();

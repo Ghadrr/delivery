@@ -5,7 +5,6 @@ import 'package:helloworld/views/product_detail.dart';
 import 'package:helloworld/views/profile.dart';
 import 'package:helloworld/views/wishlist.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -94,7 +93,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             margin: const EdgeInsets.all(15),
             child: FutureBuilder(
-              future: get_img(),
+              future: get_logos(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -107,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       for (var i in snapshot.data)
                         InkWell(
-                          onTap: () => Navigator.pop(
+                          onTap: () => Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HomePage())),

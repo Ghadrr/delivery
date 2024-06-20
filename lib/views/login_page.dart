@@ -14,9 +14,9 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
         body: SingleChildScrollView(
-          child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           FlutterLogo(
             size: 70,
           ),
@@ -44,13 +44,13 @@ class LoginPage extends StatelessWidget {
               child: Text('Entrar')),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CreateAccount()));
             },
             child: Text('Criar Conta'),
           )
-                ],
-              ),
-        ));
+        ],
+      ),
+    ));
   }
 }
