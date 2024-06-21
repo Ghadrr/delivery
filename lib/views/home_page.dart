@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helloworld/services/firebase_conect.dart';
+import 'package:helloworld/views/carrinho.dart';
 import 'package:helloworld/views/feedback.dart';
 import 'package:helloworld/views/product_detail.dart';
 import 'package:helloworld/views/profile.dart';
@@ -177,32 +178,6 @@ class _HomePageState extends State<HomePage> {
               }
             },
           ),
-          Container(
-            margin: EdgeInsets.all(15),
-            child: Row(
-              children: [Text("Recommended")],
-            ),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: List.generate(
-                6,
-                (index) {
-                  return Container(
-                    margin: EdgeInsets.all(5),
-                    child: Column(
-                      children: [
-                        Image.network(
-                            width: 100, "https://via.placeholder.com/100"),
-                        Text("data"),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
         ],
       ),
     ),
@@ -216,6 +191,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => carrinho()));
+        }),
+        backgroundColor: Colors.white,
+        child: Icon(Icons.shopping_cart_outlined),
+      ),
       body: pages[currentIndex],
       appBar: AppBar(
         title: Row(

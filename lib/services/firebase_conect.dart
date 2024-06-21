@@ -41,12 +41,15 @@ createUser(name, number, email, endereco, password) async {
         email: email, password: password);
 
     //adiciona os dados do user acima criado ao firestore
-    await db.collection('Users').add({
+    await db.collection('Users').doc(userCredential.user?.uid).set({
       'name': name,
       'number': number,
       'email': email,
       'endereco': endereco,
-      'password': password
+      'password': password,
+      'carrinho': [],
+      'compras': [],
+      'favoritos': [],
     });
     return true;
   } catch (e) {
@@ -72,11 +75,74 @@ change_user(name, number, endereco) async {
   var auth = FirebaseAuth.instance;
   var db = FirebaseFirestore.instance;
   try {
-    await db.collection("Users").doc(auth.currentUser!.uid).set({
+    print(auth.currentUser!);
+    await db.collection("Users").doc(auth.currentUser!.uid).update({
       'name': name,
       'number': number,
       'email': auth.currentUser!.email,
       'endereco': endereco,
+    });
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+
+get_user_elements() async {
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  var auth = FirebaseAuth.instance;
+  var db = FirebaseFirestore.instance;
+  try {
+    var prod = await db.collection("Users").doc(auth.currentUser!.uid).get();
+    print(prod);
+    return prod.data();
+  } catch (e) {
+    print(e);
+    return e;
+  }
+}
+
+add_cart(produto) async {
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  var auth = FirebaseAuth.instance;
+  var db = FirebaseFirestore.instance;
+  try {
+    await db.collection("Users").doc(auth.currentUser!.uid).update({
+      'carrinho': FieldValue.arrayUnion([produto]),
+    });
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+add_favorite(produto) async {
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  var auth = FirebaseAuth.instance;
+  var db = FirebaseFirestore.instance;
+  try {
+    await db.collection("Users").doc(auth.currentUser!.uid).update({
+      'favoritos': FieldValue.arrayUnion([produto]),
+    });
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+comprar(produto) async {
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  var auth = FirebaseAuth.instance;
+  var db = FirebaseFirestore.instance;
+  try {
+    await db.collection("Users").doc(auth.currentUser!.uid).update({
+      'compras': FieldValue.arrayUnion(produto),
+      'carrinho':[]
     });
     return true;
   } catch (e) {

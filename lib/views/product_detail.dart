@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:helloworld/services/firebase_conect.dart';
 import 'package:helloworld/views/carrinho.dart';
 import 'package:helloworld/views/home_page.dart';
 
@@ -18,7 +19,23 @@ class _ProductDetailState extends State<ProductDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.produto['nome']),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              widget.produto['nome'],
+              style: TextStyle(fontSize: 20),
+            ),
+            Spacer(),
+            IconButton(
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ),
+              onPressed: () {},
+            )
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -72,7 +89,18 @@ class _ProductDetailState extends State<ProductDetail> {
             Column(
               children: [
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: ()  async {
+                      var auth =  await add_cart(widget.produto);
+                      if (auth == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                          "Produto Adicionado ao carrinho",
+                        )));
+                      } else
+                        (ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                          "Error",
+                        ))));
                       Navigator.pop(context,
                           MaterialPageRoute(builder: (context) => carrinho()));
                     },
