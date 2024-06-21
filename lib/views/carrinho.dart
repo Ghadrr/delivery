@@ -44,7 +44,7 @@ class _carrinhoState extends State<carrinho> {
                         child: Column(
                           children: [
                             Text('${i['nome']}'),
-                            Image.network(height: 100, '${i['url_img']}'),
+                            Image.network(height: 80,'${i['url_img']}'),
                             Text('R\$: ${i['preco']}')
                           ],
                         ),
@@ -80,7 +80,7 @@ class _carrinhoState extends State<carrinho> {
                                     MaterialPageRoute(
                                         builder: (context) => carrinho()));
                               },
-                              child: Text("Adicionar ao Carrinho")),
+                              child: Text("Comprar")),
                         ],
                       ),
                     )

@@ -119,6 +119,21 @@ add_cart(produto) async {
     return false;
   }
 }
+remove_favorite(produto) async {
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  var auth = FirebaseAuth.instance;
+  var db = FirebaseFirestore.instance;
+  try {
+    await db.collection("Users").doc(auth.currentUser!.uid).update({
+      'favoritos': FieldValue.arrayRemove([produto]),
+    });
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
 add_favorite(produto) async {
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
@@ -150,6 +165,22 @@ comprar(produto) async {
     return false;
   }
 }
+limpar_favoritos(produto) async {
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  var auth = FirebaseAuth.instance;
+  var db = FirebaseFirestore.instance;
+  try {
+    await db.collection("Users").doc(auth.currentUser!.uid).update({
+      'favoritos':[]
+    });
+    return true;
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+
 
 user_feedback(message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

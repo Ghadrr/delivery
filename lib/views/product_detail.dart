@@ -32,7 +32,21 @@ class _ProductDetailState extends State<ProductDetail> {
                 Icons.favorite,
                 color: Colors.red,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                var auth = await add_favorite(widget.produto);
+                if (auth == true) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                    "Produto Adicionado aos favoritos",
+                  )));
+                } else
+                  (ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                    "Error",
+                  ))));
+                Navigator.pop(context,
+                    MaterialPageRoute(builder: (context) => carrinho()));
+              },
             )
           ],
         ),
@@ -89,8 +103,8 @@ class _ProductDetailState extends State<ProductDetail> {
             Column(
               children: [
                 ElevatedButton(
-                    onPressed: ()  async {
-                      var auth =  await add_cart(widget.produto);
+                    onPressed: () async {
+                      var auth = await add_cart(widget.produto);
                       if (auth == true) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(
